@@ -1,3 +1,16 @@
+-- Conectar no PDB correto
+ALTER SESSION SET CONTAINER = XEPDB1;
+
+-- Criar o usuário (caso não exista)
+CREATE USER dimdim IDENTIFIED BY dimdim123
+    DEFAULT TABLESPACE USERS
+    TEMPORARY TABLESPACE TEMP
+    QUOTA UNLIMITED ON USERS;
+
+-- Dar permissões básicas
+GRANT CONNECT, RESOURCE TO dimdim;
+
+-- Criar a tabela no schema do usuário
 CREATE TABLE dimdim.T_LUTAN_PRODUTOS (
     ID          NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     NOME        VARCHAR2(100 BYTE) NOT NULL,
